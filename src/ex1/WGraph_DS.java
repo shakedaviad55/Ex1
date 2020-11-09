@@ -3,6 +3,7 @@ package ex1;
 import java.util.*;
 
 public class WGraph_DS implements weighted_graph{
+    //test git
     private int MC=1;
     private int EDGES=0;
     private HashMap<Integer,node_info>V;
