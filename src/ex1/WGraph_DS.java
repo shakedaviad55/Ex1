@@ -18,7 +18,7 @@ public class WGraph_DS implements weighted_graph{
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (o == null||!(o instanceof weighted_graph)) return false;
         WGraph_DS wGraph_ds = (WGraph_DS) o;
         String s1=this.toString(),s2= o.toString();
         return s2.contains(s1)&& s1.contains(s2);
@@ -48,7 +48,7 @@ public class WGraph_DS implements weighted_graph{
     @Override
     public double getEdge(int node1, int node2) {
         if(hasEdge(node1,node2)){
-           if(E.get(node1)!=null)
+           if(!E.get(node1).isEmpty())
                 return E.get(node1).get(node2).doubleValue();
         }
         return -1;
@@ -91,7 +91,12 @@ public class WGraph_DS implements weighted_graph{
       }
         return list;
     }
-
+    public Set<Integer> getE(int node_id){
+        if(E.get(node_id)!=null){
+            return E.get(node_id).keySet();
+        }
+        return null;
+    }
     @Override
     public node_info removeNode(int key) {
        if(E.containsKey(key)) {

@@ -1,6 +1,9 @@
 package tests;
 
+import ex1.WGraph_Algo;
 import ex1.WGraph_DS;
+import ex1.weighted_graph;
+import ex1.weighted_graph_algorithms;
 
 import java.util.HashMap;
 
@@ -9,9 +12,8 @@ public class WGraph_Test {
         WGraph_DS g=new WGraph_DS();
         WGraph_DS g1=new WGraph_DS();
         WGraph_DS g2=new WGraph_DS();
-        WGraph_DS g3=new WGraph_DS();
-        WGraph_DS g4=new WGraph_DS();
-        System.out.println(g3.equals(g4));
+
+
         g.addNode(0);
         g.addNode(1);
         g.addNode(2);
@@ -41,6 +43,19 @@ public class WGraph_Test {
         g2.connect(0,2,2);
         g2.connect(2,0,2);
         g2.connect(2,3,2);
+
+        weighted_graph g3=new WGraph_DS();
+        weighted_graph g4=new WGraph_DS();
+        weighted_graph_algorithms algo=new WGraph_Algo();
+        algo.init(g);
+        System.out.println(algo.toString());
+        g3=algo.copy();
+        System.out.println(g.equals(g3));
+        System.out.println(g.equals(g4));
+        g4=algo.getGraph();
+        System.out.println(g4.equals(g1));
+
+
 //        System.out.println(g.toString());
 //        System.out.println(g.hasEdge(0,1));
 //        System.out.println(g.hasEdge(0,2));
@@ -76,12 +91,13 @@ public class WGraph_Test {
 //        System.out.println("edges:"+g.edgeSize());
 //        System.out.println("MC:"+g.getMC());
 //        System.out.println(g.toString());
-        System.out.println("g"+g.toString());
-        System.out.println("g1"+g1.toString());
-        System.out.println("g2"+g2.toString());
-        System.out.println("equals!!");
-        System.out.println("g1==g2"+g1.equals(g2));
-        System.out.println("g==g2"+g.equals(g2));
-        System.out.println("g==g1"+g.equals(g1));
+//        System.out.println("g"+g.toString());
+//        System.out.println("g1"+g1.toString());
+//        System.out.println("g2"+g2.toString());
+//        System.out.println("equals!!");
+//        System.out.println("g1==g2"+g1.equals(g2));
+//        System.out.println("g==g2"+g.equals(g2));
+//        System.out.println("g==g1"+g.equals(g1));
+
     }
 }
