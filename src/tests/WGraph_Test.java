@@ -46,30 +46,40 @@ public class WGraph_Test {
 
         weighted_graph g3=new WGraph_DS();
         weighted_graph g4=new WGraph_DS();
+
         weighted_graph_algorithms algo=new WGraph_Algo();
         algo.init(g);
-        System.out.println(algo.toString());
+        System.out.println("algo==g,true "+algo.equals(g));
+        System.out.println("g==algo,true "+g.equals(algo));
+
         g3=algo.copy();
-        System.out.println(g.equals(g3));
-        System.out.println(g3.equals(g));
+
+        System.out.println("g==g3,true "+g.equals(g3));
+        System.out.println("g3==g,true "+g3.equals(g));
        // g.removeNode(0);
-        System.out.println(g.equals(g3));
-        System.out.println(g.equals(g4));
+
+        System.out.println("g==g4,false "+g.equals(g4));
+
         g4=algo.getGraph();
 
-        System.out.println(g4.equals(g1));
+        System.out.println("g4==g1,true "+g4.equals(g1));
        // WGraph_DS g5=new WGraph_DS(g);
         weighted_graph_algorithms algo2=new WGraph_Algo();
         weighted_graph_algorithms algo3=new WGraph_Algo();
         algo2.init(new WGraph_DS());
         algo2.save("test.txt");
         algo3.load("test.txt");
-        //System.out.println(g5.equals(g));
+
+        System.out.println("algo2==algo3,true "+algo2.equals(algo3));
+        System.out.println("algo2==new,true "+algo2.equals(new WGraph_DS()));
         algo.save("test.txt");
 
         algo2.load("test.txt");
         weighted_graph g6=algo2.copy();
-        System.out.println(g.equals(g6));
+        System.out.println("algo2==g6,true "+algo2.equals(g6));
+        g6.removeNode(0);
+        System.out.println("g6==algo2,false "+g6.equals(algo2));
+
 //        System.out.println(g.toString());
 //        System.out.println(g.hasEdge(0,1));
 //        System.out.println(g.hasEdge(0,2));

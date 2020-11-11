@@ -43,8 +43,7 @@ public class WGraph_DS implements weighted_graph {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (o == null || !(o instanceof weighted_graph)) return false;
-        WGraph_DS wGraph_ds = (WGraph_DS) o;
+        if (o == null) return false;
         String s1 = this.toString(), s2 = o.toString();
         return s2.contains(s1) && s1.contains(s2);
     }
@@ -234,8 +233,7 @@ public class WGraph_DS implements weighted_graph {
     private void connect(node_info node1, node_info node2, double w) {
         if (E.containsKey(node1.getKey())) {
             E.get(node1.getKey()).put(node2.getKey(), w);
-        }
-        else {
+        } else {
             HashMap<Integer, Double> e = new HashMap<Integer, Double>();
             e.put(node2.getKey(), w);
             E.put(node1.getKey(), e);

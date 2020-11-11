@@ -62,7 +62,6 @@ public class WGraph_Algo implements weighted_graph_algorithms, Serializable {
             PrintWriter pw = new PrintWriter(file);
             pw.print(graph);
             pw.close();
-
         }catch (IOException e){
             e.printStackTrace();
             return false;
@@ -87,4 +86,5 @@ public class WGraph_Algo implements weighted_graph_algorithms, Serializable {
     public String toString(){
         return graph.toString();
     }
+    public boolean equals(Object obj){return graph.equals(obj);}
 }
