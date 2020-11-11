@@ -1,6 +1,7 @@
 package ex1;
 
 import java.io.*;
+import java.nio.file.*;
 import java.util.List;
 
 public class WGraph_Algo implements weighted_graph_algorithms, Serializable {
@@ -58,12 +59,9 @@ public class WGraph_Algo implements weighted_graph_algorithms, Serializable {
     @Override
     public boolean save(String file) {
         try {
-
-            FileOutputStream fos=new FileOutputStream(file);
-            ObjectOutputStream oos= new ObjectOutputStream(fos);
-            oos.writeObject(graph.toString());
-            oos.close();
-            fos.close();
+            PrintWriter pw = new PrintWriter(file);
+            pw.print(graph);
+            pw.close();
 
         }catch (IOException e){
             e.printStackTrace();
@@ -71,17 +69,16 @@ public class WGraph_Algo implements weighted_graph_algorithms, Serializable {
         }
         return true;
     }
-    //isn't ready!!!!!!
+
     @Override
     public boolean load(String file) {
+
         try{
-            FileInputStream fis=new FileInputStream(file);
-            ObjectInputStream ois= new ObjectInputStream(fis);
+           String content=new String(Files.readAllBytes(Paths.get(file)));
 
-            String wg= (String) ois.readObject();
-            int dic=0;
+           graph=new WGraph_DS(content);
 
-        }catch (IOException | ClassNotFoundException e){
+        }catch (IOException e){
             e.printStackTrace();
             return false;
         }

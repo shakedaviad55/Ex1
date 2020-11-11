@@ -58,11 +58,18 @@ public class WGraph_Test {
         g4=algo.getGraph();
 
         System.out.println(g4.equals(g1));
-
-        algo.save("test.txt");
+       // WGraph_DS g5=new WGraph_DS(g);
         weighted_graph_algorithms algo2=new WGraph_Algo();
-        algo2.load("test.txt");
+        weighted_graph_algorithms algo3=new WGraph_Algo();
+        algo2.init(new WGraph_DS());
+        algo2.save("test.txt");
+        algo3.load("test.txt");
+        //System.out.println(g5.equals(g));
+        algo.save("test.txt");
 
+        algo2.load("test.txt");
+        weighted_graph g6=algo2.copy();
+        System.out.println(g.equals(g6));
 //        System.out.println(g.toString());
 //        System.out.println(g.hasEdge(0,1));
 //        System.out.println(g.hasEdge(0,2));
