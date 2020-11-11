@@ -1,12 +1,16 @@
 package ex1;
 
+import java.io.*;
 import java.util.List;
 
-public class WGraph_Algo implements weighted_graph_algorithms {
+public class WGraph_Algo implements weighted_graph_algorithms, Serializable {
     private weighted_graph graph;
 
     public WGraph_Algo(){
         graph=new WGraph_DS();
+    }
+    public WGraph_Algo(weighted_graph g){
+        init(g);
     }
     @Override
     public void init(weighted_graph g) {
@@ -53,12 +57,35 @@ public class WGraph_Algo implements weighted_graph_algorithms {
 
     @Override
     public boolean save(String file) {
-        return false;
-    }
+        try {
 
+            FileOutputStream fos=new FileOutputStream(file);
+            ObjectOutputStream oos= new ObjectOutputStream(fos);
+            oos.writeObject(graph.toString());
+            oos.close();
+            fos.close();
+
+        }catch (IOException e){
+            e.printStackTrace();
+            return false;
+        }
+        return true;
+    }
+    //isn't ready!!!!!!
     @Override
     public boolean load(String file) {
-        return false;
+        try{
+            FileInputStream fis=new FileInputStream(file);
+            ObjectInputStream ois= new ObjectInputStream(fis);
+
+            String wg= (String) ois.readObject();
+            int dic=0;
+
+        }catch (IOException | ClassNotFoundException e){
+            e.printStackTrace();
+            return false;
+        }
+        return true;
     }
     public String toString(){
         return graph.toString();

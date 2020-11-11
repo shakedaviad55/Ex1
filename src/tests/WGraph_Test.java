@@ -51,10 +51,17 @@ public class WGraph_Test {
         System.out.println(algo.toString());
         g3=algo.copy();
         System.out.println(g.equals(g3));
+        System.out.println(g3.equals(g));
+       // g.removeNode(0);
+        System.out.println(g.equals(g3));
         System.out.println(g.equals(g4));
         g4=algo.getGraph();
+
         System.out.println(g4.equals(g1));
 
+        algo.save("test.txt");
+        weighted_graph_algorithms algo2=new WGraph_Algo();
+        algo2.load("test.txt");
 
 //        System.out.println(g.toString());
 //        System.out.println(g.hasEdge(0,1));

@@ -48,7 +48,7 @@ public class WGraph_DS implements weighted_graph{
     @Override
     public double getEdge(int node1, int node2) {
         if(hasEdge(node1,node2)){
-           if(!E.get(node1).isEmpty())
+           if(E.get(node1)!=null)
                 return E.get(node1).get(node2).doubleValue();
         }
         return -1;
