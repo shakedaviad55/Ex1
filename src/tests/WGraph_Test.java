@@ -25,7 +25,7 @@ public class WGraph_Test {
         g.addNode(6);
         g.addNode(7);
 
-        g.connect(0,1,10);
+        g.connect(0,0,10);
         g.connect(0,2,1);
         g.connect(0,3,10);
 
@@ -36,19 +36,19 @@ public class WGraph_Test {
         g.connect(4,7,100);
         g.connect(5,7,3);
         g.connect(6,7,10);
-
-        weighted_graph g2=algo.copy();
-        weighted_graph_algorithms algo2=new WGraph_Algo();
-        algo2.init(g2);
-        g2.removeEdge(0,1);
-        g2.removeEdge(0,2);
-        g2.removeEdge(0,3);
-//        System.out.println(algo.shortestPathDist(1,7));
-//        System.out.println(algo2.shortestPathDist(1,7));
-        System.out.println(algo2.shortestPath(0,0));
-
-
-
+        System.out.println(g.toString());
+//        weighted_graph g2=algo.copy();
+//        weighted_graph_algorithms algo2=new WGraph_Algo();
+//        algo2.init(g2);
+//        g2.removeEdge(0,1);
+//        g2.removeEdge(0,2);
+//        g2.removeEdge(0,3);
+////        System.out.println(algo.shortestPathDist(1,7));
+////        System.out.println(algo2.shortestPathDist(1,7));
+//        System.out.println(algo2.shortestPath(0,0));
+//
+//
+//
 
         // g.connect(2,3,4);
 //

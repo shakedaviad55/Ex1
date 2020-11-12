@@ -90,7 +90,7 @@ public class WGraph_DS implements weighted_graph {
     public void connect(int node1, int node2, double w) {
         if (w >= 0) {
             if (V.containsKey(node1) && V.containsKey(node2)) {
-                if (!hasEdge(node1, node2)) {
+                if (!hasEdge(node1, node2)&&node1!=node2) {
                     connect(getNode(node1), getNode(node2), w);
                     connect(getNode(node2), getNode(node1), w);
                     MC++;
