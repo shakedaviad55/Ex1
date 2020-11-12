@@ -175,7 +175,7 @@ public class WGraph_DS implements weighted_graph {
     }
 
     ///////////////// Private Class /////////////////
-    private class NodeInfo implements node_info {
+    private class NodeInfo implements node_info ,Comparable<node_info>{
         private int key;
         private double tag;
         private String info;
@@ -226,6 +226,12 @@ public class WGraph_DS implements weighted_graph {
 
         public String toString() {
             return "{" + this.key + "," + this.tag + "," + this.info + "}";
+        }
+
+        @Override
+        public int compareTo(node_info o) {
+            Double c=getTag();
+            return c.compareTo(o.getTag());
         }
     }
 

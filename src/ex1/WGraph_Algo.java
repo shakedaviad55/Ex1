@@ -2,9 +2,13 @@ package ex1;
 
 import java.io.*;
 import java.nio.file.*;
+import java.util.Iterator;
+import java.util.LinkedList;
 import java.util.List;
+import java.util.concurrent.PriorityBlockingQueue;
 
-public class WGraph_Algo implements weighted_graph_algorithms, Serializable {
+public class WGraph_Algo implements weighted_graph_algorithms, Serializable{
+    private static final String NOT_VISITED = "white", VISITED = "green", FINISH = "black";
     private weighted_graph graph;
 
     public WGraph_Algo(){
@@ -43,12 +47,33 @@ public class WGraph_Algo implements weighted_graph_algorithms, Serializable {
 
     @Override
     public boolean isConnected() {
-        return false;
+        if(graph==null) return false;
+        if(graph.getV().isEmpty()||graph.nodeSize()==1)return true;
+
+        graph.getV().forEach(node->node.setInfo(NOT_VISITED));
+        int firstKey= graph.getV().iterator().next().getKey();
+        isConnected(firstKey);
+
+        for (node_info node:graph.getV()){
+            if(!node.getInfo().equals(FINISH))
+                return false;
+        }
+        return true;
+
+
     }
 
     @Override
     public double shortestPathDist(int src, int dest) {
-        return 0;
+        if(graph.getNode(src)==null||graph.getNode(dest)==null)
+            throw new RuntimeException("Invalid value:node can't be null src="+src+",dest="+dest);
+        if(src==dest)return 0;
+        for(node_info node:graph.getV()){
+            node.setTag(Double.MAX_VALUE);
+            node.setInfo(NOT_VISITED);
+        }
+        graph.getNode(src).setTag(0);
+        return shortestPathDist(src,dest,new PriorityBlockingQueue<node_info>(graph.getV()));
     }
 
     @Override
@@ -87,4 +112,47 @@ public class WGraph_Algo implements weighted_graph_algorithms, Serializable {
         return graph.toString();
     }
     public boolean equals(Object obj){return graph.equals(obj);}
+
+    ////////// PRIVATE METHODS //////////
+    private void isConnected(int key){
+        LinkedList<node_info> list=new LinkedList<node_info>();
+        graph.getNode(key).setInfo(VISITED);
+        list.add(graph.getNode(key));
+        while (!list.isEmpty()){
+            node_info currNode= list.getFirst();
+            list.removeFirst();
+            Iterator<node_info> itr=graph.getV(currNode.getKey()).iterator();
+            while(itr.hasNext()){
+                node_info neighbor=itr.next();
+                if(neighbor.getInfo().equals(NOT_VISITED)){
+                    neighbor.setInfo(VISITED);
+                    list.add(neighbor);
+                }
+            }
+            currNode.setInfo(FINISH);
+        }
+    }
+    private double shortestPathDist(int src,int dest,PriorityBlockingQueue<node_info> queue){
+
+        while (!queue.isEmpty()){
+            node_info currNode=queue.remove();
+
+            if(currNode.getKey()==dest||currNode.getTag()==Double.MAX_VALUE){
+                if(currNode.getTag()==Double.MAX_VALUE)return -1;
+                return currNode.getTag();
+            }
+            for(node_info neighbor: graph.getV(currNode.getKey())){
+                double weight=currNode.getTag()+graph.getEdge(currNode.getKey(),neighbor.getKey());
+                if(neighbor.getInfo().equals(NOT_VISITED)&&weight<neighbor.getTag()){
+                    neighbor.setTag(weight);
+                    queue.remove(neighbor);
+                    queue.add(neighbor);
+                }
+            }
+            currNode.setInfo(VISITED);
+        }
+        return -1;
+    }
+
+
 }
