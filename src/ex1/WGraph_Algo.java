@@ -78,7 +78,9 @@ public class WGraph_Algo implements weighted_graph_algorithms, Serializable{
 
     @Override
     public List<node_info> shortestPath(int src, int dest) {
-        return null;
+        if(shortestPathDist(src,dest)==-1)return null;
+
+        return shortestPath(src,dest,new LinkedList<node_info>());
     }
 
     @Override
@@ -127,6 +129,7 @@ public class WGraph_Algo implements weighted_graph_algorithms, Serializable{
                 if(neighbor.getInfo().equals(NOT_VISITED)){
                     neighbor.setInfo(VISITED);
                     list.add(neighbor);
+
                 }
             }
             currNode.setInfo(FINISH);
@@ -147,12 +150,32 @@ public class WGraph_Algo implements weighted_graph_algorithms, Serializable{
                     neighbor.setTag(weight);
                     queue.remove(neighbor);
                     queue.add(neighbor);
+
+                    WGraph_DS t=(WGraph_DS)graph;
+                    t.setPrev(neighbor.getKey(),currNode);
                 }
             }
             currNode.setInfo(VISITED);
         }
         return -1;
     }
+    private  List<node_info> shortestPath(int src, int dest,LinkedList<node_info> path){
 
+        if(src==dest){
+            path.add(graph.getNode(src));
+            return path;
+        }
+        WGraph_DS temp=(WGraph_DS)graph;
+        int key=dest;
+        path.addFirst(temp.getNode(key));
+        while(temp.getPrev(key)!=null){
+            node_info n=temp.getPrev(key);
+            if(n!=null){
+                key=n.getKey();
+                path.addFirst(n);
+            }
+        }
+        return path;
+    }
 
 }

@@ -11,7 +11,7 @@ public class WGraph_Test {
     public static void main(String[] args) {
         WGraph_DS g=new WGraph_DS();
         WGraph_DS g1=new WGraph_DS();
-        WGraph_DS g2=new WGraph_DS();
+
 
         weighted_graph_algorithms algo=new WGraph_Algo();
         algo.init(g);
@@ -37,8 +37,15 @@ public class WGraph_Test {
         g.connect(5,7,3);
         g.connect(6,7,10);
 
-        System.out.println(algo.shortestPathDist(1,7));
-
+        weighted_graph g2=algo.copy();
+        weighted_graph_algorithms algo2=new WGraph_Algo();
+        algo2.init(g2);
+        g2.removeEdge(0,1);
+        g2.removeEdge(0,2);
+        g2.removeEdge(0,3);
+//        System.out.println(algo.shortestPathDist(1,7));
+//        System.out.println(algo2.shortestPathDist(1,7));
+        System.out.println(algo2.shortestPath(0,0));
 
 
 

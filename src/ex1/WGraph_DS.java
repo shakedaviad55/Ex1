@@ -158,7 +158,14 @@ public class WGraph_DS implements weighted_graph {
     public int getMC() {
         return MC;
     }
-
+    public void setPrev(int key,node_info n){
+        NodeInfo t=(NodeInfo)getNode(key);
+        t.setPrev(n);
+    }
+    public node_info getPrev(int key){
+        NodeInfo t=(NodeInfo)getNode(key);
+        return t.getPrev();
+    }
     public String toString() {
         String v = "V:" + V.keySet();
         StringBuilder e = new StringBuilder();
@@ -180,6 +187,7 @@ public class WGraph_DS implements weighted_graph {
         private double tag;
         private String info;
         private int counter = 0;
+        private node_info prev;
 
 
         public NodeInfo() {
@@ -233,6 +241,9 @@ public class WGraph_DS implements weighted_graph {
             Double c=getTag();
             return c.compareTo(o.getTag());
         }
+        public node_info getPrev(){return prev;}
+
+        public void setPrev(node_info prev) {this.prev = prev;}
     }
 
     ////////// PRIVATE METHODS //////////
