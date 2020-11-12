@@ -96,8 +96,14 @@ public class WGraph_DS implements weighted_graph {
                     MC++;
                     EDGES++;
                 }
+                else if(getEdge(node1,node2)!=w){
+                    connect(getNode(node1), getNode(node2), w);
+                    connect(getNode(node2), getNode(node1), w);
+                    MC++;
+                }
             }
         }
+        else throw  new RuntimeException("Invalid value:weight can't be a negative number w="+w);
     }
 
     @Override
@@ -244,6 +250,13 @@ public class WGraph_DS implements weighted_graph {
         public node_info getPrev(){return prev;}
 
         public void setPrev(node_info prev) {this.prev = prev;}
+
+        public boolean equals(Object obj){
+            node_info o=(NodeInfo)obj;
+            return o.getTag()==this.tag&&
+                    o.getInfo()==this.info&&
+                    o.getKey()==this.getKey();
+        }
     }
 
     ////////// PRIVATE METHODS //////////
