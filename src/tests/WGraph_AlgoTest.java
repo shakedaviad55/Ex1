@@ -1,13 +1,15 @@
 package tests;
 
 import org.junit.jupiter.api.*;
-
+import ex1.*;
 import static org.junit.jupiter.api.Assertions.*;
 
 class WGraph_AlgoTest {
 
     @Test
     void init() {
+
+
     }
 
     @Test

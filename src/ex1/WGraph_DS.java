@@ -44,7 +44,11 @@ public class WGraph_DS implements weighted_graph {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null) return false;
-        String s1 = this.toString(), s2 = o.toString();
+        String s1 = this.toString(),s2="";
+        if(o instanceof weighted_graph||o instanceof weighted_graph_algorithms){
+            s2=o.toString();
+        }
+
         return s2.contains(s1) && s1.contains(s2);
     }
 
