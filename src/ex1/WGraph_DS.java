@@ -89,18 +89,12 @@ public class WGraph_DS implements weighted_graph {
     @Override
     public void connect(int node1, int node2, double w) {
         if (w >= 0) {
+            if(node1==node2)return;
             if (V.containsKey(node1) && V.containsKey(node2)) {
-                if (!hasEdge(node1, node2)&&node1!=node2) {
-                    connect(getNode(node1), getNode(node2), w);
-                    connect(getNode(node2), getNode(node1), w);
-                    MC++;
-                    EDGES++;
-                }
-                else if(getEdge(node1,node2)!=w){
-                    connect(getNode(node1), getNode(node2), w);
-                    connect(getNode(node2), getNode(node1), w);
-                    MC++;
-                }
+                if(!hasEdge(node1, node2)) EDGES++;
+                connect(getNode(node1), getNode(node2), w);
+                connect(getNode(node2), getNode(node1), w);
+                MC++;
             }
         }
         else throw  new RuntimeException("Invalid value:weight can't be a negative number w="+w);
@@ -146,7 +140,7 @@ public class WGraph_DS implements weighted_graph {
         if (hasEdge(node1, node2)) {
             E.get(node1).remove(node2);
             E.get(node2).remove(node1);
-            EDGES--;
+            EDGES--;MC++;
         }
     }
 

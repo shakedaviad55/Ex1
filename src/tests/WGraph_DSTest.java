@@ -10,7 +10,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class WGraph_DSTest {
     private WGraph_DS g, g1;
-    private double EPS=0.000001;
+    private double EPS = 0.000001;
 
     @BeforeEach
     void setUp() {
@@ -105,78 +105,175 @@ class WGraph_DSTest {
     @Test
     void getEdge() {
         assertAll(
-                ()->assertEquals(g1.getEdge(2,3),23,EPS),
-                ()->assertEquals(g1.getEdge(6,3),36,EPS),
-                ()->assertEquals(g1.getEdge(4,7),47,EPS),
-                ()->assertEquals(g1.getEdge(0,3),30,EPS),
-                ()->assertEquals(g1.getEdge(2,3),23,EPS),
-                ()->assertEquals(g1.getEdge(2,1),21,EPS),
-                ()->assertEquals(g1.getEdge(0,10),-1,EPS),
-                ()->assertEquals(g1.getEdge(1,5),-1,EPS),
-                ()->assertEquals(g1.getEdge(8,3),-1,EPS)
+                () -> assertEquals(23, g1.getEdge(2, 3), EPS),
+                () -> assertEquals(36, g1.getEdge(6, 3), EPS),
+                () -> assertEquals(47, g1.getEdge(4, 7), EPS),
+                () -> assertEquals(30, g1.getEdge(0, 3), EPS),
+                () -> assertEquals(23, g1.getEdge(2, 3), EPS),
+                () -> assertEquals(21, g1.getEdge(2, 1), EPS),
+                () -> assertEquals(-1, g1.getEdge(0, 10), EPS),
+                () -> assertEquals(-1, g1.getEdge(1, 5), EPS),
+                () -> assertEquals(-1, g1.getEdge(8, 3), EPS)
         );
     }
 
     @Test
     void addNode() {
-       weighted_graph gg=new WGraph_DS();
-       for(int i=0;i<5;i++)gg.addNode(10);
-       assertEquals(gg.nodeSize(),1);
-       assertEquals(gg.getNode(10),g.getNode(10));
+        weighted_graph gg = new WGraph_DS();
+        for (int i = 0; i < 5; i++) gg.addNode(10);
+        assertEquals(1, gg.nodeSize());
+        assertEquals(gg.getNode(10), g.getNode(10));
     }
 
     @Test
     void connect() {
-        assertThrows(RuntimeException.class,()->g.connect(0,1,-1));
-        int edgeSize=g.edgeSize();
-        for(int i=0;i<5;i++)g.connect(0,1,10);
-        assertEquals(edgeSize,g.edgeSize());
-        g.connect(0,1,11);
-        assertEquals(g.getEdge(0,1),11);
+        assertThrows(RuntimeException.class, () -> g.connect(0, 1, -1));
+        int edgeSize = g.edgeSize();
+        for (int i = 0; i < 5; i++) g.connect(0, 1, 10);
+        assertEquals(edgeSize, g.edgeSize());
+        g.connect(0, 1, 11);
+        assertEquals(11, g.getEdge(0, 1));
     }
 
     @Test
     void getV() {
-
+        assertAll("Test for all nodes in a graph",
+                () -> {
+                    String s = "[{0,0.0,}, {1,0.0,}, {2,0.0,}, {3,0.0,}, {4,0.0,}, {5,0.0,}, {6,0.0,}, {7,0.0,}, {8,0.0,}, {9,0.0,}, {10,0.0,}]";
+                    assertTrue(g.getV().toString().contains(s));
+                    assertTrue(s.contains(g.getV().toString()));
+                    g.removeNode(0);
+                    s = "[{1,0.0,}, {2,0.0,}, {3,0.0,}, {4,0.0,}, {5,0.0,}, {6,0.0,}, {7,0.0,}, {8,0.0,}, {9,0.0,}, {10,0.0,}]";
+                    assertTrue(g.getV().toString().contains(s));
+                    assertTrue(s.contains(g.getV().toString()));
+                },
+                () -> assertEquals(g.getV().size(), g.nodeSize())
+        );
     }
 
     @Test
     void testGetV() {
+        String s = "[{6,0.0,}, {7,0.0,}, {8,0.0,}, {9,0.0,}]";
+        assertTrue(g.getV(5).toString().contains(s));
+        assertTrue(s.contains(g.getV(5).toString()));
+        g.removeEdge(5, 6);
+        s = "[{7,0.0,}, {8,0.0,}, {9,0.0,}]";
+        assertTrue(g.getV(5).toString().contains(s));
+        assertTrue(s.contains(g.getV(5).toString()));
     }
 
     @Test
     void getE() {
+        String s = "[6, 7, 8, 9]";
+        assertTrue(g.getE(5).toString().contains(s));
+        assertTrue(s.contains(g.getE(5).toString()));
+        g.removeEdge(5, 6);
+        s = "[7, 8, 9]";
+        assertTrue(g.getE(5).toString().contains(s));
+        assertTrue(s.contains(g.getE(5).toString()));
     }
 
     @Test
     void removeNode() {
+        assertAll(
+                () -> assertEquals(3, g1.getV(0).size()),
+                () -> assertTrue(g1.hasEdge(0, 1)),
+                () -> assertTrue(g1.hasEdge(0, 2)),
+                () -> assertTrue(g1.hasEdge(0, 3)),
+                () -> assertEquals(11, g1.nodeSize()),
+                () -> assertEquals(18, g1.edgeSize()),
+                () -> {
+                    g1.removeNode(0);
+                    assertEquals(g1.getV(0).size(), 0);
+                    assertFalse(g1.hasEdge(0, 1));
+                    assertFalse(g1.hasEdge(0, 2));
+                    assertFalse(g1.hasEdge(0, 3));
+                    assertEquals(10, g1.nodeSize());
+                    assertEquals(15, g1.edgeSize());
+                }
+        );
     }
 
     @Test
     void removeEdge() {
+        assertAll(
+                () -> assertTrue(g.hasEdge(0, 1)),
+                () -> assertEquals(8, g.edgeSize()),
+                () -> {
+                    g.removeEdge(0, 1);
+                    assertFalse(g.hasEdge(0, 1));
+                    assertEquals(7, g.edgeSize());
+                }
+        );
     }
 
     @Test
     void nodeSize() {
+        assertEquals(11, g.nodeSize());
+        g.removeNode(0);
+        assertEquals(10, g.nodeSize());
+        g.addNode(0);
+        assertEquals(11, g.nodeSize());
     }
 
     @Test
     void edgeSize() {
+        assertAll(
+                () -> assertEquals(18, g1.edgeSize()),
+                () -> assertTrue(g1.hasEdge(7, 10)),
+                () -> {
+                    g1.removeEdge(7, 10);
+                    assertEquals(17, g1.edgeSize());
+                    assertFalse(g1.hasEdge(7, 10));
+                },
+                ()->{
+                    g1.removeNode(7);
+                    assertEquals(15, g1.edgeSize());
+                    assertFalse(g1.hasEdge(7, 10));
+                    assertFalse(g1.hasEdge(7, 8));
+                    assertFalse(g1.hasEdge(7, 4));
+                }
+        );
     }
 
     @Test
     void getMC() {
+        weighted_graph gg=new WGraph_DS();
+        assertEquals(1,gg.getMC());
+        gg.addNode(0);
+        assertEquals(2,gg.getMC());
+        gg.addNode(1);
+        gg.connect(0,1,10);
+        assertEquals(4,gg.getMC());
+        gg.removeNode(0);
+        assertEquals(6,gg.getMC());
     }
 
     @Test
-    void setPrev() {
-    }
-
-    @Test
-    void getPrev() {
+    void setAndGetPrev() {
+        WGraph_DS gg=new WGraph_DS();
+        gg.addNode(0);
+        gg.addNode(1);
+        gg.setPrev(0,gg.getNode(1));
+        assertEquals(gg.getNode(1),gg.getPrev(0));
+        gg.setPrev(1,gg.getNode(0));
+        assertEquals(gg.getNode(0),gg.getPrev(1));
     }
 
     @Test
     void testToString() {
+        weighted_graph gg=new WGraph_DS();
+        gg.addNode(0);
+        gg.addNode(1);
+        gg.addNode(2);
+        gg.connect(0,1,1);
+        gg.connect(1,2,1);
+        gg.connect(2,0,1);
+        String s="V:[0, 1, 2]\n" +"E:{0,1|1.0}{0,2|1.0}{1,2|1.0}";
+        assertTrue(gg.toString().contains(s));
+        weighted_graph gg1=new WGraph_DS(gg.toString());
+        assertEquals(gg,gg1);
+
+
     }
 }
