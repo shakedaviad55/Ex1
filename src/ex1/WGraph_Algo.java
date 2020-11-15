@@ -73,6 +73,8 @@ public class WGraph_Algo implements weighted_graph_algorithms, Serializable{
             node.setInfo(NOT_VISITED);
         }
         graph.getNode(src).setTag(0);
+        WGraph_DS t=(WGraph_DS)graph;
+        t.setPrev(src,null);
         return shortestPathDist(src,dest,new PriorityBlockingQueue<node_info>(graph.getV()));
     }
 

@@ -2,6 +2,9 @@ package tests;
 
 import org.junit.jupiter.api.*;
 import ex1.*;
+
+import java.util.List;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 class WGraph_AlgoTest {
@@ -90,6 +93,9 @@ class WGraph_AlgoTest {
         assertFalse(sun.isConnected());
         sun.getGraph().connect(1,9,19);
         assertTrue(sun.isConnected());
+
+        line.getGraph().removeEdge(4,5);
+        assertFalse(line.isConnected());
     }
 
     @Test
@@ -99,31 +105,58 @@ class WGraph_AlgoTest {
         assertThrows(RuntimeException.class,()->single.shortestPathDist(0,2));
 
         assertEquals(6,complex.shortestPathDist(1,2),EPS);
+
         assertEquals(-1,sun.shortestPathDist(0,5),EPS);
         assertEquals(50+60+70,line.shortestPathDist(4,7),EPS);
         line.getGraph().removeEdge(4,5);
         assertEquals(-1,line.shortestPathDist(4,7),EPS);
+
     }
 
     @Test
     void shortestPath() {
 
+        assertThrows(RuntimeException.class,()->empty.shortestPath(1,2));
+        assertThrows(RuntimeException.class,()->single.shortestPath(0,2));
+
+        assertEquals(7,complex.shortestPath(2,1).size());
+        assertNull(sun.shortestPath(3,9));
+        List<node_info> l=   complex.shortestPath(4,3);
+        String path="[{4,0.0,green}, {5,1.0,green}, {8,2.0,green}, {6,3.0,green}, {3,4.0,white}]";
+        assertEquals(path,l.toString());
     }
 
     @Test
-    void save() {
+    void saveAndLoad() {
+        weighted_graph_algorithms test=new WGraph_Algo();
+        empty.save("test.txt");
+        test.load("test.txt");
+        single.save("test.txt");
+        test.load("test.txt");
+        assertEquals(single,test);
+        complex.save("test.txt");
+        test.load("test.txt");
+        assertEquals(complex,test);
+        test.getGraph().removeEdge(0,1);
+        assertNotEquals(complex,test);
     }
 
-    @Test
-    void load() {
-    }
+
 
     @Test
     void testToString() {
+        weighted_graph g=new WGraph_DS(complex.toString());
+        assertEquals(g,complex);
+
     }
 
     @Test
     void testEquals() {
+        complex.save("test.txt");
+        empty.load("test.txt");
+        assertEquals(complex,empty);
+        weighted_graph g=new WGraph_DS(empty.toString());
+        assertEquals(g,complex);
     }
     private weighted_graph setUpComplex(weighted_graph c){
 
