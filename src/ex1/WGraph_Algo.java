@@ -29,20 +29,21 @@ public class WGraph_Algo implements weighted_graph_algorithms, Serializable{
 
     @Override
     public weighted_graph copy() {
-        weighted_graph copyGraph=new WGraph_DS();
-        for(node_info node:graph.getV()){
-            copyGraph.addNode(node.getKey());
-        }
-        WGraph_DS temp= (WGraph_DS) graph;
-        for(node_info node:graph.getV()){
-            if(temp.getE(node.getKey())!=null){
-                for (Integer edge: temp.getE(node.getKey())){
-                    double w=graph.getEdge(node.getKey(),edge);
-                    copyGraph.connect(node.getKey(),edge,w);
-                }
-            }
-        }
-        return copyGraph;
+//        weighted_graph copyGraph=new WGraph_DS();
+//        for(node_info node:graph.getV()){
+//            copyGraph.addNode(node.getKey());
+//        }
+//        WGraph_DS temp= (WGraph_DS) graph;
+//        for(node_info node:graph.getV()){
+//            if(temp.getE(node.getKey())!=null){
+//                for (Integer edge: temp.getE(node.getKey())){
+//                    double w=graph.getEdge(node.getKey(),edge);
+//                    copyGraph.connect(node.getKey(),edge,w);
+//                }
+//            }
+//        }
+//        return copyGraph;
+        return new WGraph_DS(this.toString());
     }
 
     @Override

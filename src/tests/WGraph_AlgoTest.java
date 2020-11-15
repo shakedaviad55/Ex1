@@ -3,6 +3,8 @@ package tests;
 import org.junit.jupiter.api.*;
 import ex1.*;
 
+import javax.xml.crypto.Data;
+import java.util.Date;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -68,6 +70,8 @@ class WGraph_AlgoTest {
 
     @Test
     void copy() {
+
+
         weighted_graph c= empty.copy();
         assertEquals(empty,c);
 
@@ -80,6 +84,7 @@ class WGraph_AlgoTest {
 
         s.removeNode(11);
         assertEquals(s,sun);
+
 
 
     }
