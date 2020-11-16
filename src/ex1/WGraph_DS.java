@@ -44,12 +44,15 @@ public class WGraph_DS implements weighted_graph {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null) return false;
-        String s1 = this.toString(),s2="";
-        if(o instanceof weighted_graph||o instanceof weighted_graph_algorithms){
-            s2=o.toString();
+        weighted_graph obj=new WGraph_DS();
+        if(o instanceof weighted_graph){
+            obj=(weighted_graph) o;
         }
-
-        return s2.contains(s1) && s1.contains(s2);
+        if(o instanceof weighted_graph_algorithms){
+            o=((weighted_graph_algorithms) o).getGraph();
+            obj=(weighted_graph) o;
+        }
+        return similar(this,obj);
     }
 
     @Override
@@ -316,6 +319,18 @@ public class WGraph_DS implements weighted_graph {
             throw new RuntimeException("invalid value: please insert a valid number" + s);
         }
         return ans;
+    }
+    private boolean similar(weighted_graph a,weighted_graph b){
+        if(a.edgeSize()!=b.edgeSize()||a.nodeSize()!=b.nodeSize())return false;
+        for (node_info node:a.getV()){
+            if(b.getNode(node.getKey())==null)return false;
+            if(!a.getV(node.getKey()).equals(b.getV(node.getKey())))return false;
+        }
+        for (node_info node:b.getV()){
+            if(a.getNode(node.getKey())==null)return false;
+            if(!b.getV(node.getKey()).equals(a.getV(node.getKey())))return false;
+        }
+        return true;
     }
 
 }

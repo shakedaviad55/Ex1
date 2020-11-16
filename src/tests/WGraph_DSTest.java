@@ -50,14 +50,17 @@ class WGraph_DSTest {
 
     @Test
     void testEquals() {
-
-
         assertAll("Simple check if the graphs are the same",
                 () -> {
                     weighted_graph gg1 = new WGraph_DS(g.toString());
                     assertEquals(gg1, g);
+                    gg1.addNode(100);
+                    assertNotEquals(g, gg1);
                     g.removeNode(0);
                     assertNotEquals(gg1, g);
+                    assertNotEquals(new WGraph_DS(), g1);
+                    assertNotEquals(g1,new WGraph_DS());
+
 
                 },
                 () -> {

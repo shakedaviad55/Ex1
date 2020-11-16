@@ -136,6 +136,7 @@ class WGraph_AlgoTest {
         weighted_graph_algorithms test=new WGraph_Algo();
         empty.save("test.txt");
         test.load("test.txt");
+        assertEquals(new WGraph_Algo(),test);
         single.save("test.txt");
         test.load("test.txt");
         assertEquals(single,test);
