@@ -153,6 +153,7 @@ class WGraph_AlgoTest {
     void testToString() {
         weighted_graph g=new WGraph_DS(complex.toString());
         assertEquals(g,complex);
+        System.out.println(complex.toString());
 
     }
 

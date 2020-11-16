@@ -7,7 +7,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.concurrent.PriorityBlockingQueue;
 
-public class WGraph_Algo implements weighted_graph_algorithms, Serializable{
+public class WGraph_Algo implements weighted_graph_algorithms{
     private static final String NOT_VISITED = "white", VISITED = "green", FINISH = "black";
     private weighted_graph graph;
 
@@ -39,7 +39,7 @@ public class WGraph_Algo implements weighted_graph_algorithms, Serializable{
             }
         }
         return copyGraph;
-       // return new WGraph_DS(this.toString());
+
 
     }
 

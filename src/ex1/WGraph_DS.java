@@ -44,15 +44,15 @@ public class WGraph_DS implements weighted_graph {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null) return false;
-        weighted_graph obj=new WGraph_DS();
-        if(o instanceof weighted_graph){
-            obj=(weighted_graph) o;
+        weighted_graph obj = new WGraph_DS();
+        if (o instanceof weighted_graph) {
+            obj = (weighted_graph) o;
         }
-        if(o instanceof weighted_graph_algorithms){
-            o=((weighted_graph_algorithms) o).getGraph();
-            obj=(weighted_graph) o;
+        if (o instanceof weighted_graph_algorithms) {
+            o = ((weighted_graph_algorithms) o).getGraph();
+            obj = (weighted_graph) o;
         }
-        return similar(this,obj);
+        return similar(this, obj);
     }
 
     @Override
@@ -96,15 +96,14 @@ public class WGraph_DS implements weighted_graph {
     @Override
     public void connect(int node1, int node2, double w) {
         if (w >= 0) {
-            if(node1==node2)return;
+            if (node1 == node2) return;
             if (V.containsKey(node1) && V.containsKey(node2)) {
-                if(!hasEdge(node1, node2)) EDGES++;
+                if (!hasEdge(node1, node2)) EDGES++;
                 connect(getNode(node1), getNode(node2), w);
                 connect(getNode(node2), getNode(node1), w);
                 MC++;
             }
-        }
-        else throw  new RuntimeException("Invalid value:weight can't be a negative number w="+w);
+        } else throw new RuntimeException("Invalid value:weight can't be a negative number w=" + w);
     }
 
     @Override
@@ -147,7 +146,8 @@ public class WGraph_DS implements weighted_graph {
         if (hasEdge(node1, node2)) {
             E.get(node1).remove(node2);
             E.get(node2).remove(node1);
-            EDGES--;MC++;
+            EDGES--;
+            MC++;
         }
     }
 
@@ -165,31 +165,36 @@ public class WGraph_DS implements weighted_graph {
     public int getMC() {
         return MC;
     }
-    public void setPrev(int key,node_info n){
-        NodeInfo t=(NodeInfo)getNode(key);
+
+    public void setPrev(int key, node_info n) {
+        NodeInfo t = (NodeInfo) getNode(key);
         t.setPrev(n);
     }
-    public node_info getPrev(int key){
-        NodeInfo t=(NodeInfo)getNode(key);
+
+    public node_info getPrev(int key) {
+        NodeInfo t = (NodeInfo) getNode(key);
         return t.getPrev();
     }
+
     public String toString() {
         String v = "V:" + V.keySet();
         StringBuilder e = new StringBuilder();
+        HashMap<String, Integer> h = new HashMap<>();
         for (Integer n : E.keySet()) {
             Iterator<Integer> itr = E.get(n).keySet().iterator();
             while (itr.hasNext()) {
                 int key = itr.next();
-                if (!e.toString().contains("{" + key + "," + n + "|" + getEdge(n, key) + "}"))
+                if (h.get("{" + key + "," + n + "|" + getEdge(n, key) + "}") == null) {
                     e.append("{" + n + "," + key + "|" + getEdge(n, key) + "}");
+                    h.put("{" + n + "," + key + "|" + getEdge(n, key) + "}", 0);
+                }
             }
         }
-
         return v + "\n" + "E:" + e;
     }
 
     ///////////////// Private Class /////////////////
-    private class NodeInfo implements node_info ,Comparable<node_info>{
+    private class NodeInfo implements node_info, Comparable<node_info> {
         private int key;
         private double tag;
         private String info;
@@ -245,18 +250,23 @@ public class WGraph_DS implements weighted_graph {
 
         @Override
         public int compareTo(node_info o) {
-            Double c=getTag();
+            Double c = getTag();
             return c.compareTo(o.getTag());
         }
-        public node_info getPrev(){return prev;}
 
-        public void setPrev(node_info prev) {this.prev = prev;}
+        public node_info getPrev() {
+            return prev;
+        }
 
-        public boolean equals(Object obj){
-            node_info o=(NodeInfo)obj;
-            return o.getTag()==this.tag&&
-                    o.getInfo()==this.info&&
-                    o.getKey()==this.getKey();
+        public void setPrev(node_info prev) {
+            this.prev = prev;
+        }
+
+        public boolean equals(Object obj) {
+            node_info o = (NodeInfo) obj;
+            return o.getTag() == this.tag &&
+                    o.getInfo() == this.info &&
+                    o.getKey() == this.getKey();
         }
     }
 
@@ -320,15 +330,16 @@ public class WGraph_DS implements weighted_graph {
         }
         return ans;
     }
-    private boolean similar(weighted_graph a,weighted_graph b){
-        if(a.edgeSize()!=b.edgeSize()||a.nodeSize()!=b.nodeSize())return false;
-        for (node_info node:a.getV()){
-            if(b.getNode(node.getKey())==null)return false;
-            if(!a.getV(node.getKey()).equals(b.getV(node.getKey())))return false;
+
+    private boolean similar(weighted_graph a, weighted_graph b) {
+        if (a.edgeSize() != b.edgeSize() || a.nodeSize() != b.nodeSize()) return false;
+        for (node_info node : a.getV()) {
+            if (b.getNode(node.getKey()) == null) return false;
+            if (!a.getV(node.getKey()).equals(b.getV(node.getKey()))) return false;
         }
-        for (node_info node:b.getV()){
-            if(a.getNode(node.getKey())==null)return false;
-            if(!b.getV(node.getKey()).equals(a.getV(node.getKey())))return false;
+        for (node_info node : b.getV()) {
+            if (a.getNode(node.getKey()) == null) return false;
+            if (!b.getV(node.getKey()).equals(a.getV(node.getKey()))) return false;
         }
         return true;
     }
