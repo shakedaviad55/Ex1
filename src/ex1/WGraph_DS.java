@@ -1,21 +1,29 @@
 package ex1;
-
-
 import java.util.*;
-
-
+/**
+ * This class represents a weighted and unintentional graph
+ * V represents the nodes of the graph.In a data structure of HashMap<Integer,noe_info>
+ * E represents the edges of the graph.In a data structure of HashMap<Integer,HashMap<Integer,Double>>
+ * @author Shaked Aviad
+ */
 public class WGraph_DS implements weighted_graph {
-
     private int MC = 1;
     private int EDGES = 0;
     private HashMap<Integer, node_info> V;
     private HashMap<Integer, HashMap<Integer, Double>> E;
-
+    /**
+     * Default constructor
+     * @ a new WGraph_DS
+     */
     public WGraph_DS() {
         V = new HashMap<Integer, node_info>();
         E = new HashMap<Integer, HashMap<Integer, Double>>();
     }
-
+    /**
+     * A constructor that receives a string and returns a graph based on the string
+     * @param  s
+     * @return a new WGraph_DS
+     */
 
     public WGraph_DS(String s) {
         this();
@@ -26,21 +34,12 @@ public class WGraph_DS implements weighted_graph {
                 setE(arr[1]);
         }
     }
-
-    //    public WGraph_DS(WGraph_DS g){
-//        this();
-//        g.getV().forEach(node->{
-//          addNode(node.getKey());
-//        });
-//
-//        g.getV().forEach(node->{
-//           if(g.getE(node.getKey())!=null){
-//               g.getE(node.getKey()).forEach(edge->{
-//                   connect(node.getKey(),edge,g.getEdge(node.getKey(),edge));
-//               });
-//           }
-//        });
-//    }
+    /**
+     * A comparison function returns true if the graphs are logically identical
+     * The similar function is explained below
+     * @param o
+     * @return
+     */
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -55,12 +54,16 @@ public class WGraph_DS implements weighted_graph {
         }
         return similar(this, obj);
     }
-
     @Override
     public int hashCode() {
         return Objects.hash(EDGES, V, E);
     }
 
+    /**
+     * Returns the requested node by the unique key, if exists else null
+     * @param key - the node_id
+     * @return node_info
+     */
     @Override
     public node_info getNode(int key) {
         if (V.get(key) != null) {
@@ -68,6 +71,13 @@ public class WGraph_DS implements weighted_graph {
         }
         return null;
     }
+
+    /**
+     * Returns true if there is a edge between the two vertices,else false
+     * @param node1
+     * @param node2
+     * @return boolean
+     */
 
     @Override
     public boolean hasEdge(int node1, int node2) {
@@ -77,6 +87,12 @@ public class WGraph_DS implements weighted_graph {
         return false;
     }
 
+    /**
+     * Returns the weight between the two vertices if exists else -1
+     * @param node1
+     * @param node2
+     * @return Double w
+     */
     @Override
     public double getEdge(int node1, int node2) {
         if (hasEdge(node1, node2)) {
@@ -86,6 +102,10 @@ public class WGraph_DS implements weighted_graph {
         return -1;
     }
 
+    /**
+     * Adds a new node to the graph V if no such node exists
+     * @param key
+     */
     @Override
     public void addNode(int key) {
         if (!V.containsKey(key)) {
@@ -94,6 +114,15 @@ public class WGraph_DS implements weighted_graph {
         }
     }
 
+    /**
+     * Connects a edge between two vertices if there is no edge between them.
+     * if exists updates the new weight
+     * And updates E
+     * Throws a RuntimeException if w is a negative
+     * @param node1
+     * @param node2
+     * @param w
+     */
     @Override
     public void connect(int node1, int node2, double w) {
         if (w >= 0) {
@@ -107,11 +136,20 @@ public class WGraph_DS implements weighted_graph {
         } else throw new RuntimeException("Invalid value:weight can't be a negative number w=" + w);
     }
 
+    /**
+     * Returns all vertices of the graph
+     * @return Collection<node_info>
+     */
     @Override
     public Collection<node_info> getV() {
         return this.V.values();
     }
 
+    /**
+     * Returns all neighbors of the specific node
+     * @param node_id
+     * @return  Collection<node_info>
+     */
     @Override
     public Collection<node_info> getV(int node_id) {
         List<node_info> list = new ArrayList<node_info>();
@@ -123,6 +161,12 @@ public class WGraph_DS implements weighted_graph {
         return list;
     }
 
+    /**
+     * For a graph an algorithm returns all the neighbors of the specific node
+     * if exists else null
+     * @param node_id
+     * @return Set<Integer>
+     */
     public Set<Integer> getE(int node_id) {
         if (E.get(node_id) != null) {
             return E.get(node_id).keySet();
@@ -130,6 +174,11 @@ public class WGraph_DS implements weighted_graph {
         return null;
     }
 
+    /**
+     * Deletes a specific node from the graph and all the edges connected to it
+     * @param key
+     * @return node_info
+     */
     @Override
     public node_info removeNode(int key) {
         if (E.containsKey(key)) {
@@ -142,6 +191,11 @@ public class WGraph_DS implements weighted_graph {
         return V.remove(key);
     }
 
+    /**
+     * Deletes a specific edge if exists
+     * @param node1
+     * @param node2
+     */
     @Override
     public void removeEdge(int node1, int node2) {
         if (hasEdge(node1, node2)) {
@@ -152,31 +206,56 @@ public class WGraph_DS implements weighted_graph {
         }
     }
 
+    /**
+     * Returns the amount of vertices in the graph
+     * @return int
+     */
     @Override
     public int nodeSize() {
         return V.size();
     }
-
+    /**
+     * Returns the amount of edges in the graph
+     * @return int
+     */
     @Override
     public int edgeSize() {
         return EDGES;
     }
 
+    /**
+     * Returns the amount of changes that occurred in the graph
+     * @return int
+     */
     @Override
     public int getMC() {
         return MC;
     }
 
+    /**
+     * For a graph an algorithm updates the node through which this node came
+     * @param key
+     * @param n
+     */
     public void setPrev(int key, node_info n) {
         NodeInfo t = (NodeInfo) getNode(key);
         t.setPrev(n);
     }
 
+    /**
+     * For a graph an algorithm returns the node through which we reached this node
+     * @param key
+     * @return node_info
+     */
     public node_info getPrev(int key) {
         NodeInfo t = (NodeInfo) getNode(key);
         return t.getPrev();
     }
 
+    /**
+     * Returns the string of the graph so V:[v1,v2,...,vn]\n E:[{vi,vj|w},...]
+     * @return String
+     */
     public String toString() {
         String v = "V:" + V.keySet();
         HashMap<String, Integer> e = new HashMap<>();
@@ -193,6 +272,11 @@ public class WGraph_DS implements weighted_graph {
     }
 
     ///////////////// Private Class /////////////////
+
+    /**
+     * A private class represents the node of the graph
+     * @author Shaked Aviad
+     */
     private class NodeInfo implements node_info, Comparable<node_info> {
         private int key;
         private double tag;
@@ -200,67 +284,122 @@ public class WGraph_DS implements weighted_graph {
         private int counter = 0;
         private node_info prev;
 
-
+        /**
+         * Default constructor
+         * @return a new node_info
+         */
         public NodeInfo() {
             this.tag = 0;
             this.info = "";
             this.key = counter++;
         }
 
+        /**
+         * constructor
+         * @param key
+         * @param tag
+         * @param info
+         * @return new node_info
+         */
         public NodeInfo(int key, int tag, String info) {
             this.key = key;
             this.info = info;
             this.tag = tag;
         }
+        /**
+         * constructor
+         * @param key
+         * @return new node_info
+         */
 
         public NodeInfo(int key) {
             this(key, 0, "");
         }
 
-
+        /**
+         * Returns the key of the node
+         * @return int
+         */
         @Override
         public int getKey() {
             return this.key;
         }
 
+        /**
+         * Returns the info of the node
+         * @return String
+         */
         @Override
         public String getInfo() {
             return this.info;
         }
 
+        /**
+         * Updates the node information
+         * @param s
+         */
         @Override
         public void setInfo(String s) {
             this.info = s;
         }
-
+        /**
+         * Returns the tag of the node
+         * @return double
+         */
         @Override
         public double getTag() {
             return this.tag;
         }
-
+        /**
+         * Updates the node tag
+         * @param t
+         */
         @Override
         public void setTag(double t) {
             this.tag = t;
         }
 
+        /**
+         * Returns the node as a string
+         * @return String
+         */
         public String toString() {
             return "{" + this.key + "," + this.tag + "," + this.info + "}";
         }
 
+        /**
+         * For a graph an algorithm compares two nodes by their tag
+         * @param o
+         * @return int
+         */
         @Override
         public int compareTo(node_info o) {
             Double c = getTag();
             return c.compareTo(o.getTag());
         }
+/////////// Private Method //////////
 
-        public node_info getPrev() {
+        /**
+         * For a graph an algorithm returns the node on its way we came to this node
+         * @return node_info
+         */
+        private node_info getPrev() {
             return prev;
         }
 
-        public void setPrev(node_info prev) {
+        /**
+         * For a graph an algorithm updates the node through which we reached this node
+         * @param prev
+         */
+        private void setPrev(node_info prev) {
             this.prev = prev;
         }
 
+        /**
+         * Compares two nodes by the variables of the node
+         * @param obj
+         * @return
+         */
         public boolean equals(Object obj) {
             node_info o = (NodeInfo) obj;
             return o.getTag() == this.tag &&
@@ -270,6 +409,15 @@ public class WGraph_DS implements weighted_graph {
     }
 
     ////////// PRIVATE METHODS //////////
+
+    /**
+     * Auxiliary function, checks whether the node exists in E
+     * if it creates a new neighbor for it
+     * and if not adds to graph E
+     * @param node1
+     * @param node2
+     * @param w
+     */
     private void connect(node_info node1, node_info node2, double w) {
         if (E.containsKey(node1.getKey())) {
             E.get(node1.getKey()).put(node2.getKey(), w);
@@ -280,11 +428,24 @@ public class WGraph_DS implements weighted_graph {
         }
     }
 
+    /**
+     * Auxiliary function, returns an array of strings
+     * so that the first member has the V
+     * and the second member has the E
+     * @param s
+     * @return String []
+     */
     private String[] simplify(String s) {
         s = s.replace(" ", "");
         return s.split("\n");
     }
 
+    /**
+     * Auxiliary function, converts from a string to an int
+     * and inserts the new vertex into the graph
+     * Throws  RuntimeException If a value that cannot be converted to int
+     * @param s
+     */
     private void setV(String s) {
         s = s.substring(3, s.length() - 1);
         String[] arr = s.split(",");
@@ -293,6 +454,12 @@ public class WGraph_DS implements weighted_graph {
         }
     }
 
+    /**
+     * Auxiliary function, checks whether it can be converted to INT,
+     * then converts and does not throws  RuntimeException
+     * @param s
+     * @return int
+     */
     private int parseInt(String s) {
         int ans;
         try {
@@ -303,6 +470,11 @@ public class WGraph_DS implements weighted_graph {
         return ans;
     }
 
+    /**
+     * Auxiliary function, gets a string and turns it into edges in graph E.
+     * If you fail in conversion throws RuntimeException
+     * @param s
+     */
     private void setE(String s) {
         s = s.substring(3,s.length()-1);
         StringTokenizer st = new StringTokenizer(s);
@@ -311,7 +483,11 @@ public class WGraph_DS implements weighted_graph {
             if(st.hasMoreTokens())st.nextToken();
         }
     }
-
+    /**
+     * Auxiliary function, simplifies any expression of type {v1,v2|w}
+     * If you fail in conversion throws RuntimeException
+     * @param s
+     */
     private void simplifyEdge(String s) {
         StringTokenizer st = new StringTokenizer(s);
         int node1 = parseInt(st.nextToken(",|"));
@@ -320,7 +496,12 @@ public class WGraph_DS implements weighted_graph {
         connect(node1, node2, w);
 
     }
-
+    /**
+     * Auxiliary function, checks whether it can be converted to Double,
+     * then converts and does not throws  RuntimeException
+     * @param s
+     * @return double
+     */
     private double parseDouble(String s) {
         double ans;
         try {
@@ -331,6 +512,14 @@ public class WGraph_DS implements weighted_graph {
         return ans;
     }
 
+    /**
+     * Auxiliary function,
+     * Checks if two graphs are logically
+     * identical in that they contain the same vertices and the same edges
+     * @param a
+     * @param b
+     * @return boolean
+     */
     private boolean similar(weighted_graph a, weighted_graph b) {
         if (a.edgeSize() != b.edgeSize() || a.nodeSize() != b.nodeSize()) return false;
         for (node_info node : a.getV()) {
