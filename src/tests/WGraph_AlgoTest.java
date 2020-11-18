@@ -105,25 +105,19 @@ class WGraph_AlgoTest {
 
     @Test
     void shortestPathDist() {
-
         assertThrows(RuntimeException.class,()->empty.shortestPathDist(1,2));
         assertThrows(RuntimeException.class,()->single.shortestPathDist(0,2));
-
         assertEquals(6,complex.shortestPathDist(1,2),EPS);
-
         assertEquals(-1,sun.shortestPathDist(0,5),EPS);
         assertEquals(50+60+70,line.shortestPathDist(4,7),EPS);
         line.getGraph().removeEdge(4,5);
         assertEquals(-1,line.shortestPathDist(4,7),EPS);
-
     }
 
     @Test
     void shortestPath() {
-
         assertThrows(RuntimeException.class,()->empty.shortestPath(1,2));
         assertThrows(RuntimeException.class,()->single.shortestPath(0,2));
-
         assertEquals(7,complex.shortestPath(2,1).size());
         assertNull(sun.shortestPath(3,9));
         List<node_info> l=   complex.shortestPath(4,3);

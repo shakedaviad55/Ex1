@@ -1,5 +1,6 @@
 package ex1;
 
+
 import java.util.*;
 
 
@@ -21,7 +22,7 @@ public class WGraph_DS implements weighted_graph {
         String[] arr = simplify(s);
         if (arr[0].length() > 4) {
             setV(arr[0]);
-            if (arr[1].length() > 2)
+            if (arr[1].length() > 4)
                 setE(arr[1]);
         }
     }
@@ -178,19 +179,17 @@ public class WGraph_DS implements weighted_graph {
 
     public String toString() {
         String v = "V:" + V.keySet();
-        StringBuilder e = new StringBuilder();
-        HashMap<String, Integer> h = new HashMap<>();
+        HashMap<String, Integer> e = new HashMap<>();
         for (Integer n : E.keySet()) {
             Iterator<Integer> itr = E.get(n).keySet().iterator();
             while (itr.hasNext()) {
                 int key = itr.next();
-                if (h.get("{" + key + "," + n + "|" + getEdge(n, key) + "}") == null) {
-                    e.append("{" + n + "," + key + "|" + getEdge(n, key) + "}");
-                    h.put("{" + n + "," + key + "|" + getEdge(n, key) + "}", 0);
+                if (e.get("{" + key + "," + n + "|" + getEdge(n, key) + "}") == null) {
+                    e.put("{" + n + "," + key + "|" + getEdge(n, key) + "}", 0);
                 }
             }
         }
-        return v + "\n" + "E:" + e;
+        return v + "\n" + "E:" +e.keySet();
     }
 
     ///////////////// Private Class /////////////////
@@ -305,10 +304,11 @@ public class WGraph_DS implements weighted_graph {
     }
 
     private void setE(String s) {
-        s = s.substring(2);
+        s = s.substring(3,s.length()-1);
         StringTokenizer st = new StringTokenizer(s);
         while (st.hasMoreTokens()) {
             simplifyEdge(st.nextToken("{}"));
+            if(st.hasMoreTokens())st.nextToken();
         }
     }
 

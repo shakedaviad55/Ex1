@@ -5,6 +5,7 @@ import java.nio.file.*;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Set;
 import java.util.concurrent.PriorityBlockingQueue;
 
 public class WGraph_Algo implements weighted_graph_algorithms{
@@ -31,16 +32,15 @@ public class WGraph_Algo implements weighted_graph_algorithms{
         }
         WGraph_DS temp= (WGraph_DS) graph;
         for(node_info node:graph.getV()){
-            if(temp.getE(node.getKey())!=null){
-                for (Integer edge: temp.getE(node.getKey())){
+            Set<Integer> ni=temp.getE(node.getKey()) ;
+            if(ni!=null){
+                for (Integer edge: ni){
                     double w=graph.getEdge(node.getKey(),edge);
                     copyGraph.connect(node.getKey(),edge,w);
                 }
             }
         }
         return copyGraph;
-
-
     }
 
     @Override

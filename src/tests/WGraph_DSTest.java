@@ -235,6 +235,12 @@ class WGraph_DSTest {
                     assertFalse(g1.hasEdge(7, 10));
                     assertFalse(g1.hasEdge(7, 8));
                     assertFalse(g1.hasEdge(7, 4));
+                },
+                ()->{
+                    int edge=g1.edgeSize();
+                    g1.connect(0,1,0);
+                    assertEquals(edge,g1.edgeSize());
+                    assertEquals(0,g1.getEdge(0,1));
                 }
         );
     }
@@ -272,7 +278,8 @@ class WGraph_DSTest {
         gg.connect(0,1,1);
         gg.connect(1,2,1);
         gg.connect(2,0,1);
-        String s="V:[0, 1, 2]\n" +"E:{0,1|1.0}{0,2|1.0}{1,2|1.0}";
+
+        String s="V:[0, 1, 2]\n"+"E:[{0,2|1.0}, {1,2|1.0}, {0,1|1.0}]";
         assertTrue(gg.toString().contains(s));
         weighted_graph gg1=new WGraph_DS(gg.toString());
         assertEquals(gg,gg1);
