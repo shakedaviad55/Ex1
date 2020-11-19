@@ -1,3 +1,5 @@
+package ex1.src;
+
 import java.io.*;
 import java.nio.file.*;
 import java.util.Iterator;
@@ -6,7 +8,7 @@ import java.util.List;
 import java.util.concurrent.PriorityBlockingQueue;
 
 /**
- * This class represents the algorithms of weighted_graph
+ * This class represents the algorithms of ex1.ex1.src.ex1.src.weighted_graph
  * @author Shaked Aviad
  */
 public class WGraph_Algo implements weighted_graph_algorithms{
@@ -15,7 +17,7 @@ public class WGraph_Algo implements weighted_graph_algorithms{
 
     /**
      * Default constructor
-     * @return new WGraph_Algo
+     * @return new ex1.ex1.src.ex1.src.WGraph_Algo
      */
     public WGraph_Algo(){ graph=new WGraph_DS(); }
 
@@ -34,7 +36,7 @@ public class WGraph_Algo implements weighted_graph_algorithms{
 
     /**
      * Returns the base graph of the class
-     * @return weighted_graph
+     * @return ex1.ex1.src.ex1.src.weighted_graph
      */
     @Override
     public weighted_graph getGraph() { return graph; }
@@ -42,7 +44,7 @@ public class WGraph_Algo implements weighted_graph_algorithms{
     /**
      * Deep copying
      * Copies every vertex and every edge that exists in the copied graph
-     * @return weighted_graph
+     * @return ex1.ex1.src.ex1.src.weighted_graph
      */
     @Override
     public weighted_graph copy() {
@@ -87,9 +89,9 @@ public class WGraph_Algo implements weighted_graph_algorithms{
     }
 
     /**
-     * Checking the shortest path from vertex src to vertex dest
-     * If vertex src or dest is null throws RuntimeException
-     * if src=dest return 0
+     * Checking the shortest path from vertex ex1.ex1.src to vertex dest
+     * If vertex ex1.ex1.src or dest is null throws RuntimeException
+     * if ex1.ex1.src=dest return 0
      * First initialize all vertices in NOT_VISITED and MAX_VALUE
      * And update the vertex prev of to be null
      * An explanation of the auxiliary function is below
@@ -100,7 +102,7 @@ public class WGraph_Algo implements weighted_graph_algorithms{
     @Override
     public double shortestPathDist(int src, int dest) {
         if(graph.getNode(src)==null||graph.getNode(dest)==null)
-            throw new RuntimeException("Invalid value:node can't be null src="+src+",dest="+dest);
+            throw new RuntimeException("Invalid value:node can't be null ex1.ex1.src="+src+",dest="+dest);
         if(src==dest)return 0;
         for(node_info node:graph.getV()){
             node.setTag(Double.MAX_VALUE);
@@ -113,13 +115,13 @@ public class WGraph_Algo implements weighted_graph_algorithms{
     }
 
     /**
-     * Returns all vertices that form the shortest path from vertex src to dest
+     * Returns all vertices that form the shortest path from vertex ex1.ex1.src to dest
      * If there is no such path returns null
-     * If vertex src or dest is null throws RuntimeException
+     * If vertex ex1.ex1.src or dest is null throws RuntimeException
      * An explanation of the auxiliary function is below
      * @param src - start node
      * @param dest - end (target) node
-     * @return List<node_info>
+     * @return List<ex1.ex1.src.ex1.src.node_info>
      */
     @Override
     public List<node_info> shortestPath(int src, int dest) {
@@ -175,7 +177,7 @@ public class WGraph_Algo implements weighted_graph_algorithms{
     }
 
     /**
-     * Compares two graphs using equals of WGraph_DS
+     * Compares two graphs using equals of ex1.ex1.src.ex1.src.WGraph_DS
      * @param obj
      * @return boolean
      */
@@ -259,13 +261,13 @@ public class WGraph_Algo implements weighted_graph_algorithms{
 
     /**
      * Auxiliary function,
-     * Through shortestPathDist has the shortest path from src to dest
-     * Embryos from vertex dest to src via the prev belonging to the same vertex
-     * Until get to null it signifies that we have reached a vertex src
+     * Through shortestPathDist has the shortest path from ex1.ex1.src to dest
+     * Embryos from vertex dest to ex1.ex1.src via the prev belonging to the same vertex
+     * Until get to null it signifies that we have reached a vertex ex1.ex1.src
      * @param src
      * @param dest
      * @param path
-     * @return  List<node_info>
+     * @return  List<ex1.ex1.src.ex1.src.node_info>
      */
     private  List<node_info> shortestPath(int src, int dest,LinkedList<node_info> path){
 

@@ -1,4 +1,7 @@
+package ex1.tests;
+
 import org.junit.jupiter.api.*;
+import ex1.src.*;
 
 import java.util.List;
 
@@ -52,8 +55,8 @@ class WGraph_AlgoTest {
 
     @Test
     void getGraph() {
-//        assertEquals(empty.getGraph(),new WGraph_DS());
-//        assertEquals(empty.getGraph(),new WGraph_Algo());
+//        assertEquals(empty.getGraph(),new ex1.ex1.src.ex1.src.WGraph_DS());
+//        assertEquals(empty.getGraph(),new ex1.ex1.src.ex1.src.WGraph_Algo());
 //
 //        assertEquals(complex.getGraph(),complex);
 //

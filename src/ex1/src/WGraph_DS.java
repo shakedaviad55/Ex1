@@ -1,3 +1,5 @@
+package ex1.src;
+
 import java.util.*;
 /**
  * This class represents a weighted and unintentional graph
@@ -12,7 +14,7 @@ public class WGraph_DS implements weighted_graph {
     private HashMap<Integer, HashMap<Integer, Double>> E;
     /**
      * Default constructor
-     * @ a new WGraph_DS
+     * @return a new ex1.src.WGraph_DS
      */
     public WGraph_DS() {
         V = new HashMap<Integer, node_info>();
@@ -21,7 +23,7 @@ public class WGraph_DS implements weighted_graph {
     /**
      * A constructor that receives a string and returns a graph based on the string
      * @param  s
-     * @return a new WGraph_DS
+     * @return a new ex1.src.WGraph_DS
      */
 
     public WGraph_DS(String s) {
@@ -61,7 +63,7 @@ public class WGraph_DS implements weighted_graph {
     /**
      * Returns the requested node by the unique key, if exists else null
      * @param key - the node_id
-     * @return node_info
+     * @return ex1.ex1.src.ex1.src.node_info
      */
     @Override
     public node_info getNode(int key) {
@@ -137,7 +139,7 @@ public class WGraph_DS implements weighted_graph {
 
     /**
      * Returns all vertices of the graph
-     * @return Collection<node_info>
+     * @return Collection<ex1.ex1.src.ex1.src.node_info>
      */
     @Override
     public Collection<node_info> getV() {
@@ -147,7 +149,7 @@ public class WGraph_DS implements weighted_graph {
     /**
      * Returns all neighbors of the specific node
      * @param node_id
-     * @return  Collection<node_info>
+     * @return  Collection<ex1.ex1.src.ex1.src.node_info>
      */
     @Override
     public Collection<node_info> getV(int node_id) {
@@ -163,7 +165,7 @@ public class WGraph_DS implements weighted_graph {
     /**
      * Deletes a specific node from the graph and all the edges connected to it
      * @param key
-     * @return node_info
+     * @return ex1.ex1.src.ex1.src.node_info
      */
     @Override
     public node_info removeNode(int key) {
@@ -231,7 +233,7 @@ public class WGraph_DS implements weighted_graph {
     /**
      * For a graph an algorithm returns the node through which we reached this node
      * @param key
-     * @return node_info
+     * @return ex1.ex1.src.ex1.src.node_info
      */
     public node_info getPrev(int key) {
         NodeInfo t = (NodeInfo) getNode(key);
@@ -272,7 +274,7 @@ public class WGraph_DS implements weighted_graph {
 
         /**
          * Default constructor
-         * @return a new node_info
+         * @return a new ex1.ex1.src.ex1.src.node_info
          */
         public NodeInfo() {
             this.tag = 0;
@@ -285,7 +287,7 @@ public class WGraph_DS implements weighted_graph {
          * @param key
          * @param tag
          * @param info
-         * @return new node_info
+         * @return new ex1.ex1.src.ex1.src.node_info
          */
         public NodeInfo(int key, int tag, String info) {
             this.key = key;
@@ -295,7 +297,7 @@ public class WGraph_DS implements weighted_graph {
         /**
          * constructor
          * @param key
-         * @return new node_info
+         * @return new ex1.ex1.src.ex1.src.node_info
          */
 
         public NodeInfo(int key) {
@@ -367,7 +369,7 @@ public class WGraph_DS implements weighted_graph {
 
         /**
          * For a graph an algorithm returns the node on its way we came to this node
-         * @return node_info
+         * @return ex1.ex1.src.ex1.src.node_info
          */
         private node_info getPrev() {
             return prev;

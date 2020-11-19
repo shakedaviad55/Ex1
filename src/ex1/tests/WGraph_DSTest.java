@@ -1,6 +1,8 @@
+package ex1.tests;
+
+import ex1.src.*;
+
 import org.junit.jupiter.api.*;
-
-
 
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -57,8 +59,6 @@ class WGraph_DSTest {
                     assertNotEquals(gg1, g);
                     assertNotEquals(new WGraph_DS(), g1);
                     assertNotEquals(g1,new WGraph_DS());
-
-
                 },
                 () -> {
                     weighted_graph gg1 = new WGraph_DS();
@@ -77,18 +77,12 @@ class WGraph_DSTest {
     }
 
     @Test
-    void testHashCode() {
-
-    }
-
-    @Test
     void getNode() {
         assertAll(
                 () -> assertNull(g1.getNode(11)),
                 () -> assertEquals(g.getNode(0), g1.getNode(0))
         );
     }
-
     @Test
     void hasEdge() {
         for (int i = 1; i < 3; i++) {
@@ -269,7 +263,5 @@ class WGraph_DSTest {
         assertTrue(gg.toString().contains(s));
         weighted_graph gg1=new WGraph_DS(gg.toString());
         assertEquals(gg,gg1);
-
-
     }
 }
