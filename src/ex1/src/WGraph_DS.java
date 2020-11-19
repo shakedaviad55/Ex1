@@ -3,8 +3,8 @@ package ex1.src;
 import java.util.*;
 /**
  * This class represents a weighted and unintentional graph
- * V represents the nodes of the graph.In a data structure of HashMap<Integer,noe_info>
- * E represents the edges of the graph.In a data structure of HashMap<Integer,HashMap<Integer,Double>>
+ * V represents the nodes of the graph. In a data structure of HashMap<Integer,noe_info>
+ * E represents the edges of the graph. In a data structure of HashMap<Integer,HashMap<Integer,Double>>
  * @author Shaked Aviad
  */
 public class WGraph_DS implements weighted_graph {
@@ -14,7 +14,7 @@ public class WGraph_DS implements weighted_graph {
     private HashMap<Integer, HashMap<Integer, Double>> E;
     /**
      * Default constructor
-     * @return a new ex1.src.WGraph_DS
+     * @return a new WGraph_DS
      */
     public WGraph_DS() {
         V = new HashMap<Integer, node_info>();
@@ -22,8 +22,10 @@ public class WGraph_DS implements weighted_graph {
     }
     /**
      * A constructor that receives a string and returns a graph based on the string
+     * An explanation about the functions setE() & setV() is down below
+     * If it returns an invalid value -> throws RunTimeException
      * @param  s
-     * @return a new ex1.src.WGraph_DS
+     * @return a new WGraph_DS
      */
 
     public WGraph_DS(String s) {
@@ -61,9 +63,9 @@ public class WGraph_DS implements weighted_graph {
     }
 
     /**
-     * Returns the requested node by the unique key, if exists else null
+     * Returns the requested node by the unique key, if exists, else returns null
      * @param key - the node_id
-     * @return ex1.ex1.src.ex1.src.node_info
+     * @return node_info
      */
     @Override
     public node_info getNode(int key) {
@@ -74,7 +76,7 @@ public class WGraph_DS implements weighted_graph {
     }
 
     /**
-     * Returns true if there is a edge between the two vertices,else false
+     * Returns true if there is an edge between the two vertices, else false
      * @param node1
      * @param node2
      * @return boolean
@@ -89,7 +91,7 @@ public class WGraph_DS implements weighted_graph {
     }
 
     /**
-     * Returns the weight between the two vertices if exists else -1
+     * Returns the weight between the two vertices if exists, else return -1
      * @param node1
      * @param node2
      * @return Double w
@@ -116,10 +118,10 @@ public class WGraph_DS implements weighted_graph {
     }
 
     /**
-     * Connects a edge between two vertices if there is no edge between them.
-     * if exists updates the new weight
+     * Connects an edge between two vertices if there is no edge between them.
+     * if the edge do exists updates the new weight
      * And updates E
-     * Throws a RuntimeException if w is a negative
+     * Throws a RuntimeException if w is a negative number
      * @param node1
      * @param node2
      * @param w
@@ -139,7 +141,7 @@ public class WGraph_DS implements weighted_graph {
 
     /**
      * Returns all vertices of the graph
-     * @return Collection<ex1.ex1.src.ex1.src.node_info>
+     * @return Collection<node_info>
      */
     @Override
     public Collection<node_info> getV() {
@@ -149,7 +151,7 @@ public class WGraph_DS implements weighted_graph {
     /**
      * Returns all neighbors of the specific node
      * @param node_id
-     * @return  Collection<ex1.ex1.src.ex1.src.node_info>
+     * @return  Collection<node_info>
      */
     @Override
     public Collection<node_info> getV(int node_id) {
@@ -165,7 +167,7 @@ public class WGraph_DS implements weighted_graph {
     /**
      * Deletes a specific node from the graph and all the edges connected to it
      * @param key
-     * @return ex1.ex1.src.ex1.src.node_info
+     * @return node_info
      */
     @Override
     public node_info removeNode(int key) {
@@ -221,7 +223,8 @@ public class WGraph_DS implements weighted_graph {
     }
 
     /**
-     * For a graph an algorithm updates the node through which this node came
+     * For graph algorithm,
+     * updates the previous node we got from to the current node
      * @param key
      * @param n
      */
@@ -231,9 +234,11 @@ public class WGraph_DS implements weighted_graph {
     }
 
     /**
-     * For a graph an algorithm returns the node through which we reached this node
+     * For graph algorithm,
+     * returns the previous node we got from to the current node
+     *
      * @param key
-     * @return ex1.ex1.src.ex1.src.node_info
+     * @return node_info
      */
     public node_info getPrev(int key) {
         NodeInfo t = (NodeInfo) getNode(key);
@@ -241,7 +246,7 @@ public class WGraph_DS implements weighted_graph {
     }
 
     /**
-     * Returns the string of the graph so V:[v1,v2,...,vn]\n E:[{vi,vj|w},...]
+     * Returns the string of the graph in this particular way: V:[v1,v2,...,vn]\n E:[{vi,vj|w},...]
      * @return String
      */
     public String toString() {
@@ -274,7 +279,7 @@ public class WGraph_DS implements weighted_graph {
 
         /**
          * Default constructor
-         * @return a new ex1.ex1.src.ex1.src.node_info
+         * @return a new node_info
          */
         public NodeInfo() {
             this.tag = 0;
@@ -283,11 +288,11 @@ public class WGraph_DS implements weighted_graph {
         }
 
         /**
-         * constructor
+         * Constructor
          * @param key
          * @param tag
          * @param info
-         * @return new ex1.ex1.src.ex1.src.node_info
+         * @return new node_info
          */
         public NodeInfo(int key, int tag, String info) {
             this.key = key;
@@ -295,9 +300,9 @@ public class WGraph_DS implements weighted_graph {
             this.tag = tag;
         }
         /**
-         * constructor
+         * Constructor
          * @param key
-         * @return new ex1.ex1.src.ex1.src.node_info
+         * @return new node_info
          */
 
         public NodeInfo(int key) {
@@ -339,7 +344,7 @@ public class WGraph_DS implements weighted_graph {
             return this.tag;
         }
         /**
-         * Updates the node tag
+         * Updates the node's tag
          * @param t
          */
         @Override
@@ -356,7 +361,8 @@ public class WGraph_DS implements weighted_graph {
         }
 
         /**
-         * For a graph an algorithm compares two nodes by their tag
+         * For graph algorithm,
+         * compares two nodes by their tag
          * @param o
          * @return int
          */
@@ -368,15 +374,17 @@ public class WGraph_DS implements weighted_graph {
 /////////// Private Method //////////
 
         /**
-         * For a graph an algorithm returns the node on its way we came to this node
-         * @return ex1.ex1.src.ex1.src.node_info
+         * For graph algorithm,
+         * returns the previous node which we got from to this current node
+         * @return node_info
          */
         private node_info getPrev() {
             return prev;
         }
 
         /**
-         * For a graph an algorithm updates the node through which we reached this node
+         * For graph algorithm,
+         * updates the previous node which we got from to this current node
          * @param prev
          */
         private void setPrev(node_info prev) {
@@ -444,7 +452,7 @@ public class WGraph_DS implements weighted_graph {
 
     /**
      * Auxiliary function, checks whether it can be converted to INT,
-     * then converts and does not throws  RuntimeException
+     * then converts it, does not throws RuntimeException
      * @param s
      * @return int
      */
@@ -460,7 +468,7 @@ public class WGraph_DS implements weighted_graph {
 
     /**
      * Auxiliary function, gets a string and turns it into edges in graph E.
-     * If you fail in conversion throws RuntimeException
+     * If it fails in converting, throws RuntimeException
      * @param s
      */
     private void setE(String s) {
@@ -473,7 +481,7 @@ public class WGraph_DS implements weighted_graph {
     }
     /**
      * Auxiliary function, simplifies any expression of type {v1,v2|w}
-     * If you fail in conversion throws RuntimeException
+     * If it fails in converting, throws RuntimeException
      * @param s
      */
     private void simplifyEdge(String s) {
@@ -486,7 +494,7 @@ public class WGraph_DS implements weighted_graph {
     }
     /**
      * Auxiliary function, checks whether it can be converted to Double,
-     * then converts and does not throws  RuntimeException
+     * then converts it, does not throws  RuntimeException
      * @param s
      * @return double
      */
@@ -502,8 +510,8 @@ public class WGraph_DS implements weighted_graph {
 
     /**
      * Auxiliary function,
-     * Checks if two graphs are logically
-     * identical in that they contain the same vertices and the same edges
+     * Checks if two graphs are logically identical,
+     * aka they contain the same vertices and the same edges
      * @param a
      * @param b
      * @return boolean
