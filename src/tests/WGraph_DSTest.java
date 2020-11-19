@@ -166,17 +166,6 @@ class WGraph_DSTest {
     }
 
     @Test
-    void getE() {
-        String s = "[6, 7, 8, 9]";
-        assertTrue(g.getE(5).toString().contains(s));
-        assertTrue(s.contains(g.getE(5).toString()));
-        g.removeEdge(5, 6);
-        s = "[7, 8, 9]";
-        assertTrue(g.getE(5).toString().contains(s));
-        assertTrue(s.contains(g.getE(5).toString()));
-    }
-
-    @Test
     void removeNode() {
         assertAll(
                 () -> assertEquals(3, g1.getV(0).size()),

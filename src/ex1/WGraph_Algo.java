@@ -1,29 +1,50 @@
 package ex1;
-
 import java.io.*;
 import java.nio.file.*;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Set;
 import java.util.concurrent.PriorityBlockingQueue;
 
+/**
+ * This class represents the algorithms of weighted_graph
+ * @author Shaked Aviad
+ */
 public class WGraph_Algo implements weighted_graph_algorithms{
     private static final String NOT_VISITED = "white", VISITED = "green", FINISH = "black";
     private weighted_graph graph;
 
-    public WGraph_Algo(){
-        graph=new WGraph_DS();
-    }
-    public WGraph_Algo(weighted_graph g){
-        init(g);
-    }
+    /**
+     * Default constructor
+     * @return new WGraph_Algo
+     */
+    public WGraph_Algo(){ graph=new WGraph_DS(); }
+
+    /**
+     * Constructor
+     * Shallow copy operation
+     * @param g
+     */
+    public WGraph_Algo(weighted_graph g){init(g);}
+    /**
+     * Initialization of an algorithm graph by a given graph g
+     * @param g
+     */
     @Override
     public void init(weighted_graph g) { graph=g; }
 
+    /**
+     * Returns the base graph of the class
+     * @return weighted_graph
+     */
     @Override
     public weighted_graph getGraph() { return graph; }
 
+    /**
+     * Deep copying
+     * Copies every vertex and every edge that exists in the copied graph
+     * @return weighted_graph
+     */
     @Override
     public weighted_graph copy() {
         weighted_graph copyGraph=new WGraph_DS();
@@ -39,6 +60,17 @@ public class WGraph_Algo implements weighted_graph_algorithms{
         return copyGraph;
     }
 
+    /**
+     * Checks if it is possible to reach from any vertex to any vertex
+     * Minimum conditions:
+     * If the graph is null return false
+     * If the graph is empty or with only one vertex return true
+     * First initializes all vertices in NOT_VISITED information
+     * Once the basic graph has returned from the auxiliary function
+     * and has a vertex that has not reached it return false else true
+     * An explanation of the auxiliary function is explained below
+     * @return boolean
+     */
     @Override
     public boolean isConnected() {
         if(graph==null) return false;
@@ -53,10 +85,19 @@ public class WGraph_Algo implements weighted_graph_algorithms{
                 return false;
         }
         return true;
-
-
     }
 
+    /**
+     * Checking the shortest path from vertex src to vertex dest
+     * If vertex src or dest is null throws RuntimeException
+     * if src=dest return 0
+     * First initialize all vertices in NOT_VISITED and MAX_VALUE
+     * And update the vertex prev of to be null
+     * An explanation of the auxiliary function is below
+     * @param src - start node
+     * @param dest - end (target) node
+     * @return double
+     */
     @Override
     public double shortestPathDist(int src, int dest) {
         if(graph.getNode(src)==null||graph.getNode(dest)==null)
@@ -72,13 +113,27 @@ public class WGraph_Algo implements weighted_graph_algorithms{
         return shortestPathDist(src,dest,new PriorityBlockingQueue<node_info>(graph.getV()));
     }
 
+    /**
+     * Returns all vertices that form the shortest path from vertex src to dest
+     * If there is no such path returns null
+     * If vertex src or dest is null throws RuntimeException
+     * An explanation of the auxiliary function is below
+     * @param src - start node
+     * @param dest - end (target) node
+     * @return List<node_info>
+     */
     @Override
     public List<node_info> shortestPath(int src, int dest) {
         if(shortestPathDist(src,dest)==-1)return null;
-
         return shortestPath(src,dest,new LinkedList<node_info>());
     }
 
+    /**
+     * Saves the basic graph to the file
+     * Uses PrintWriter Because of its convenient display in the text file
+     * @param file - the file name (may include a relative path).
+     * @return boolean
+     */
     @Override
     public boolean save(String file) {
         try {
@@ -92,26 +147,54 @@ public class WGraph_Algo implements weighted_graph_algorithms{
         return true;
     }
 
+    /**
+     * Loading text file to graph
+     * Converts it to String
+     * and sends it to a constructor that receives String
+     * If one of the values obtained is invalid throws RuntimeException
+     * @param file - file name
+     * @return boolean
+     */
     @Override
     public boolean load(String file) {
-
         try{
            String content=new String(Files.readAllBytes(Paths.get(file)));
-
            graph=new WGraph_DS(content);
-
         }catch (IOException e){
             e.printStackTrace();
             return false;
         }
         return true;
     }
+
+    /**
+     * Converts the base graph to a string
+     * @return String
+     */
     public String toString(){
         return graph.toString();
     }
+
+    /**
+     * Compares two graphs using equals of WGraph_DS
+     * @param obj
+     * @return boolean
+     */
     public boolean equals(Object obj){return graph.equals(obj);}
 
     ////////// PRIVATE METHODS //////////
+
+    /**
+     * Auxiliary function,
+     * First there is in list has the first vertex
+     * Initialize the first vertex from the list
+     * If there are NOT_VISITED vertices
+     * Add it to the list and change its info to VISITED
+     * Change the info of the first vertex to FINISH
+     * Delete the first vertex from list
+     * It goes on until the list is empty
+     * @param key
+     */
     private void isConnected(int key){
         LinkedList<node_info> list=new LinkedList<node_info>();
         graph.getNode(key).setInfo(VISITED);
@@ -131,6 +214,25 @@ public class WGraph_Algo implements weighted_graph_algorithms{
             currNode.setInfo(FINISH);
         }
     }
+
+    /**
+     * Auxiliary function,
+     * First in queue is the vertex
+     * Go through all the vertices until you reach the vertex dest
+     * Initialize the vertex with the shortest path currNode
+     * And delete it from the queue
+     * 1) if he vertex dest Return it
+     * 2) If their value MAX_VALUE returns -1
+     * else pass all its neighbors if a shorter way to the neighbor is found
+     * And not yet VISITED update its value to be shorter
+     * And his prev to be currNode
+     * Change the information of currNode to be VISITED
+     * Continue like this until queue is empty or 1 or 2
+     * @param src
+     * @param dest
+     * @param queue
+     * @return double
+     */
     private double shortestPathDist(int src,int dest,PriorityBlockingQueue<node_info> queue){
 
         while (!queue.isEmpty()){
@@ -155,6 +257,17 @@ public class WGraph_Algo implements weighted_graph_algorithms{
         }
         return -1;
     }
+
+    /**
+     * Auxiliary function,
+     * Through shortestPathDist has the shortest path from src to dest
+     * Embryos from vertex dest to src via the prev belonging to the same vertex
+     * Until get to null it signifies that we have reached a vertex src
+     * @param src
+     * @param dest
+     * @param path
+     * @return  List<node_info>
+     */
     private  List<node_info> shortestPath(int src, int dest,LinkedList<node_info> path){
 
         if(src==dest){

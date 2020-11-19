@@ -162,19 +162,6 @@ public class WGraph_DS implements weighted_graph {
     }
 
     /**
-     * For a graph an algorithm returns all the neighbors of the specific node
-     * if exists else null
-     * @param node_id
-     * @return Set<Integer>
-     */
-    public Set<Integer> getE(int node_id) {
-        if (E.get(node_id) != null) {
-            return E.get(node_id).keySet();
-        }
-        return null;
-    }
-
-    /**
      * Deletes a specific node from the graph and all the edges connected to it
      * @param key
      * @return node_info
