@@ -27,18 +27,14 @@ public class WGraph_Algo implements weighted_graph_algorithms{
     @Override
     public weighted_graph copy() {
         weighted_graph copyGraph=new WGraph_DS();
-        for(node_info node:graph.getV()){
+        for(node_info node: graph.getV()){
             copyGraph.addNode(node.getKey());
-        }
-        WGraph_DS temp= (WGraph_DS) graph;
-        for(node_info node:graph.getV()){
-            Set<Integer> ni=temp.getE(node.getKey()) ;
-            if(ni!=null){
-                for (Integer edge: ni){
-                    double w=graph.getEdge(node.getKey(),edge);
-                    copyGraph.connect(node.getKey(),edge,w);
-                }
-            }
+            for (node_info ni:graph.getV(node.getKey()))
+                copyGraph.connect(
+                            node.getKey(),
+                            ni.getKey(),
+                            graph.getEdge(node.getKey(), ni.getKey())
+                );
         }
         return copyGraph;
     }
