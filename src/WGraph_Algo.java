@@ -1,4 +1,3 @@
-package ex1;
 import java.io.*;
 import java.nio.file.*;
 import java.util.Iterator;

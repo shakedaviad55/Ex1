@@ -1,10 +1,5 @@
-package tests;
-
 import org.junit.jupiter.api.*;
-import ex1.*;
 
-import javax.xml.crypto.Data;
-import java.util.Date;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -57,15 +52,29 @@ class WGraph_AlgoTest {
 
     @Test
     void getGraph() {
-        assertEquals(empty.getGraph(),new WGraph_DS());
-        assertEquals(empty.getGraph(),new WGraph_Algo());
-
-        assertEquals(complex.getGraph(),complex);
-
-        complex.getGraph().removeNode(2);
-
-        assertEquals(complex.getGraph(),complex);
-
+//        assertEquals(empty.getGraph(),new WGraph_DS());
+//        assertEquals(empty.getGraph(),new WGraph_Algo());
+//
+//        assertEquals(complex.getGraph(),complex);
+//
+//        complex.getGraph().removeNode(2);
+//
+//        assertEquals(complex.getGraph(),complex);
+        weighted_graph w=new WGraph_DS();
+        for(int i=0;i<8;i++)w.addNode(i);
+        w.connect(0,1,5);
+        w.connect(0,2,1);
+        w.connect(0,3,6);
+        w.connect(1,2,3);
+        w.connect(2,3,6);
+        w.connect(3,6,3);
+        w.connect(2,5,1);
+        w.connect(1,4,2);
+        w.connect(4,5,4);
+        w.connect(5,6,3);
+        weighted_graph_algorithms w1=new WGraph_Algo();
+        w1.init(w);
+        System.out.println(w1.shortestPath(1,5));
     }
 
     @Test
