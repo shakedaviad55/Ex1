@@ -1,6 +1,6 @@
 # Assignment Ex1:
 
- This project deals with a undirected weighted graph. this project is based on project 0.
+ This project deals with a undirected weighted graph. this project is based on project 0 https://github.com/shakedaviad55/Ex0.git .
 
 ## initializetion of the project:
   git clone https://github.com/shakedaviad55/Ex1.git
