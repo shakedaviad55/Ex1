@@ -14,6 +14,8 @@
  in this class you can create graphs
 - addNode - add nodes to the graph
 - removeNode - remove node from the graph
+- connect - creates an edge between two nodes with weight
+- removeEdge - removes an edge between two nodes
 - getV - returns all the nodes in the graph
 - getV(node_id) - returns all the nodes in the graph be a unique key
 
