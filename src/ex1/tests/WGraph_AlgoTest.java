@@ -1,19 +1,19 @@
 package ex1.tests;
 
-import org.junit.jupiter.api.*;
 import ex1.src.*;
+import org.junit.jupiter.api.*;
 
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 class WGraph_AlgoTest {
-   private weighted_graph_algorithms complex,sun,single,line,empty;
+   private ex1.src.weighted_graph_algorithms complex,sun,single,line,empty;
    private double EPS=0.000001;
     @BeforeEach
     void setUp(){
         weighted_graph
-                c=new WGraph_DS(),
+                c=new ex1.src.WGraph_DS(),
                 s=new WGraph_DS(),
                 l=new WGraph_DS(),
                 su=new WGraph_DS(),
@@ -55,29 +55,15 @@ class WGraph_AlgoTest {
 
     @Test
     void getGraph() {
-//        assertEquals(empty.getGraph(),new ex1.ex1.src.ex1.src.WGraph_DS());
-//        assertEquals(empty.getGraph(),new ex1.ex1.src.ex1.src.WGraph_Algo());
-//
-//        assertEquals(complex.getGraph(),complex);
-//
-//        complex.getGraph().removeNode(2);
-//
-//        assertEquals(complex.getGraph(),complex);
-        weighted_graph w=new WGraph_DS();
-        for(int i=0;i<8;i++)w.addNode(i);
-        w.connect(0,1,5);
-        w.connect(0,2,1);
-        w.connect(0,3,6);
-        w.connect(1,2,3);
-        w.connect(2,3,6);
-        w.connect(3,6,3);
-        w.connect(2,5,1);
-        w.connect(1,4,2);
-        w.connect(4,5,4);
-        w.connect(5,6,3);
-        weighted_graph_algorithms w1=new WGraph_Algo();
-        w1.init(w);
-        System.out.println(w1.shortestPath(1,5));
+        assertEquals(empty.getGraph(),new WGraph_DS());
+        assertEquals(empty.getGraph(),new WGraph_Algo());
+
+        assertEquals(complex.getGraph(),complex);
+
+        complex.getGraph().removeNode(2);
+
+        assertEquals(complex.getGraph(),complex);
+
     }
 
     @Test
