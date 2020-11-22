@@ -7,8 +7,14 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+/**
+ * This testing class Checks all algorithms
+ * Using the five graphs:complex,sun,single,line,empty
+ * See Wiki's of this project
+ * @author  Shaked Aviad
+ */
 class WGraph_AlgoTest {
-   private ex1.src.weighted_graph_algorithms complex,sun,single,line,empty;
+   private weighted_graph_algorithms complex,sun,single,line,empty;
    private double EPS=0.000001;
     @BeforeEach
     void setUp(){
@@ -127,16 +133,21 @@ class WGraph_AlgoTest {
     void saveAndLoad() {
         weighted_graph_algorithms test=new WGraph_Algo();
         empty.save("test.txt");
+
         test.load("test.txt");
+
         assertEquals(new WGraph_Algo(),test);
         single.save("test.txt");
         test.load("test.txt");
+
         assertEquals(single,test);
         complex.save("test.txt");
         test.load("test.txt");
+
         assertEquals(complex,test);
         test.getGraph().removeEdge(0,1);
         assertNotEquals(complex,test);
+
     }
 
 

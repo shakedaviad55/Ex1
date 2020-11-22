@@ -146,6 +146,7 @@ public class WGraph_Algo implements weighted_graph_algorithms{
             return false;
         }
         return true;
+
     }
 
     /**
@@ -166,6 +167,7 @@ public class WGraph_Algo implements weighted_graph_algorithms{
             return false;
         }
         return true;
+
     }
 
     /**
@@ -290,3 +292,4 @@ public class WGraph_Algo implements weighted_graph_algorithms{
     }
 
 }
+

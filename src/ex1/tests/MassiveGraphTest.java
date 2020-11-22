@@ -5,7 +5,13 @@ import ex1.src.*;
 import org.junit.jupiter.api.*;
 
 import static org.junit.jupiter.api.Assertions.*;
-///
+
+/**
+ * This testing class checking a large graph
+ * With a million vertices and a million edges
+ * See Wiki's of this project
+ * @author Shaked Aviad
+ */
 class MassiveGraphTest {
     private weighted_graph_algorithms massive=new WGraph_Algo();
     @BeforeEach

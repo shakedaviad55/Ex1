@@ -1,5 +1,6 @@
 package ex1.src;
 
+
 import java.util.*;
 /**
  * This class represents a weighted and unintentional graph
@@ -270,7 +271,7 @@ public class WGraph_DS implements weighted_graph {
      * A private class represents the node of the graph
      * @author Shaked Aviad
      */
-    private class NodeInfo implements node_info, Comparable<node_info> {
+    private class NodeInfo implements node_info, Comparable<node_info>  {
         private int key;
         private double tag;
         private String info;

@@ -7,6 +7,12 @@ import org.junit.jupiter.api.*;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+/**
+ * This testing class checking all the functions of WGraph_DS
+ * using two graphs : g,g1
+ * See Wiki's of this project
+ * @author Shaked Aviad
+ */
 class WGraph_DSTest {
     private WGraph_DS g, g1;
     private double EPS = 0.000001;
