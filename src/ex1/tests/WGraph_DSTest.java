@@ -8,9 +8,9 @@ import org.junit.jupiter.api.*;
 import static org.junit.jupiter.api.Assertions.*;
 
 /**
- * This testing class checking all the functions of WGraph_DS
+ * This testing class checks all the functions of WGraph_DS
  * using two graphs : g,g1
- * See Wiki's of this project
+ * See Wiki's project
  * @author Shaked Aviad
  */
 class WGraph_DSTest {

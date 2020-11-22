@@ -10,7 +10,7 @@ import static org.junit.jupiter.api.Assertions.*;
 /**
  * This testing class Checks all algorithms
  * Using the five graphs:complex,sun,single,line,empty
- * See Wiki's of this project
+ * See Wiki's project
  * @author  Shaked Aviad
  */
 class WGraph_AlgoTest {

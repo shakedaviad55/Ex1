@@ -7,9 +7,9 @@ import org.junit.jupiter.api.*;
 import static org.junit.jupiter.api.Assertions.*;
 
 /**
- * This testing class checking a large graph
+ * This testing class checks a large graph
  * With a million vertices and a million edges
- * See Wiki's of this project
+ * See Wiki's project
  * @author Shaked Aviad
  */
 class MassiveGraphTest {
